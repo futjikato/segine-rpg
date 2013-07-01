@@ -5,6 +5,7 @@ import de.futjikato.segine.TextureManager;
 import de.futjikato.segine.map.Map;
 import de.futjikato.segine.rendering.FrameCounter;
 import de.futjikato.segine.rendering.Renderer;
+import de.futjikato.segine.rendering.Viewport;
 import org.newdawn.slick.Input;
 
 public class Main {
@@ -20,8 +21,12 @@ public class Main {
         }
 
         try {
+            // initialize viewport
+            Viewport vp = new Viewport(1, 0, 0, 10, 10, 500, 500);
+            vp.createWindow("SRPG - Segine Tech Demo");
+
             // initialize renderer
-            Renderer renderer = new Renderer();
+            Renderer renderer = new Renderer(vp);
 
             // add framecounter
             renderer.setFrameCounter(new FrameCounter() {
