@@ -2,15 +2,17 @@ package de.futjikato.srpg;
 
 import de.futjikato.segine.SegineException;
 import de.futjikato.segine.TextureManager;
+import de.futjikato.segine.game.Player;
+import de.futjikato.segine.game.camera.CenterCamera;
+import de.futjikato.segine.game.camera.StaticCamera;
 import de.futjikato.segine.map.Map;
 import de.futjikato.segine.rendering.FrameCounter;
 import de.futjikato.segine.rendering.Renderer;
 import de.futjikato.segine.rendering.Viewport;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Input;
 
 public class Main {
-
-    public static Input input;
 
     public static void main(String[] args) {
 
@@ -22,11 +24,20 @@ public class Main {
 
         try {
             // initialize viewport
-            Viewport vp = new Viewport(1, 0, 0, 10, 10, 500, 500);
+            Viewport vp = new Viewport(1, 0, 0, 10, 10, 800, 600);
             vp.createWindow("SRPG - Segine Tech Demo");
 
             // initialize renderer
             Renderer renderer = new Renderer(vp);
+
+            // create player
+            Player player = new Hero();
+            renderer.addRenderContainer(player);
+            renderer.addObserver(player);
+
+            // create camera
+            CenterCamera camera = new CenterCamera(vp, player);
+            renderer.setCamera(camera);
 
             // add framecounter
             renderer.setFrameCounter(new FrameCounter() {
